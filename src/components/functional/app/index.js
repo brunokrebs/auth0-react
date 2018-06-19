@@ -1,24 +1,20 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Layout from "antd/lib/layout";
+import { Layout } from "antd";
 
-import Content from "../../ui/content";
 import Users from "../../../pages/users";
 
-export default class App extends React.Component {
+class App extends React.Component {
   render() {
     return (
       <Layout>
-        <Layout>
-          <Layout>
-            <Content>
-              <Route exact path="/" render={() => <Users />} />
-            </Content>
-          </Layout>
-        </Layout>
+        <Layout.Header>Layout.Header</Layout.Header>
+        <Layout.Content>
+          <Route exact path="/" render={() => <Users />} />
+        </Layout.Content>
       </Layout>
     );
   }
 }
 
-App.propTypes = {};
+export default App;

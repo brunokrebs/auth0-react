@@ -1,13 +1,19 @@
 import React from "react";
-import Row from "antd/lib/row";
-import Col from "antd/lib/col";
+import { Row } from "antd";
+import { Col } from "antd";
 
-export default class Users extends React.Component {
+import UsersList from "../../containers/users-list";
+
+class Users extends React.Component {
   render() {
     return (
       <Row>
-        <Col span={24}>Hello world</Col>
+        <Col span={24}>
+          <UsersList {...this.props} />
+        </Col>
       </Row>
     );
   }
 }
+
+export default Users;
