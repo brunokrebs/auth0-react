@@ -10,6 +10,7 @@ const ListItemWrapper = styled(List.Item)`
 class UsersList extends React.Component {
   componentDidMount() {
     this.props.fetchUsers();
+    this.props.channelConnection();
   }
 
   errorNode = () => {

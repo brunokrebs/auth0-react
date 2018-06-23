@@ -1,4 +1,16 @@
+import { Socket } from "phoenix";
+
 import constants from "../constants/user";
+
+const socket = new Socket("ws://localhost:4000/socket", {
+  logger: (kind, msg, data) => {
+    console.log(`${kind}: ${msg}`, data);
+  }
+});
+
+socket.connect();
+
+const channel = socket.channel("users");
 
 export const fetchUsers = () => dispatch => {
   dispatch({
@@ -19,4 +31,22 @@ export const fetchUsers = () => dispatch => {
         errorMessage: response.status
       });
     });
+};
+
+export const channelConnection = () => dispatch => {
+  channel.join().receive("ok", response => {
+    dispatch({
+      type: constants.CONNECTED_TO_USER_CHANNEL,
+      response,
+      channel
+    });
+  });
+
+  channel.on("users::new", response => {
+    dispatch({
+      type: constants.HAS_NEW_USER,
+      user: response.user,
+      channel
+    });
+  });
 };

@@ -44,6 +44,20 @@ export default (state = initialState, action) => {
         });
       });
 
+    case constants.HAS_NEW_USER:
+      return state
+        .set(
+          "users",
+          state.get("users").merge(Map([[action.user.id, action.user]]))
+        )
+        .updateIn(["ui", "users"], () => {
+          return Map({
+            loading: false,
+            doneLoading: true,
+            loadError: null
+          });
+        });
+
     default:
       return state;
   }
