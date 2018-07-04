@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { List } from "antd";
+import { List, Button } from "antd";
 import styled from "styled-components";
 
 const ListItemWrapper = styled(List.Item)`
@@ -25,8 +25,21 @@ class UsersList extends React.Component {
       loading={this.props.usersUi.get("loading")}
       dataSource={this.props.users.toArray()}
       renderItem={item => (
-        <ListItemWrapper>
+        <ListItemWrapper
+          actions={[
+            <Button type="primary" onClick={() => this.props.editUser(item.id)}>
+              Edit
+            </Button>,
+            <Button
+              type="danger"
+              onClick={() => this.props.deleteUser(item.id)}
+            >
+              Delete
+            </Button>
+          ]}
+        >
           <List.Item.Meta title={item.name} description={item.name} />
+          <div>{item.name}</div>
         </ListItemWrapper>
       )}
     />

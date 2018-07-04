@@ -17,7 +17,12 @@ export const fetchUsers = () => dispatch => {
     type: constants.FETCH_USERS_REQUEST
   });
 
-  return fetch("http://localhost:4000/api/users")
+  return fetch("http://localhost:4000/api/users", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
     .then(res => res.json())
     .then(users => {
       dispatch({
@@ -57,7 +62,7 @@ export const saveUser = values => dispatch => {
   });
 
   return fetch("http://localhost:4000/api/users", {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
@@ -73,6 +78,31 @@ export const saveUser = values => dispatch => {
     .catch(response => {
       dispatch({
         type: constants.SAVE_USER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
+export const deleteUser = id => dispatch => {
+  dispatch({
+    type: constants.DELETE_USER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/api/users/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(() => {
+      dispatch({
+        type: constants.DELETE_USER_SUCCESS,
+        id
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.DELETE_USER_FAILURE,
         errorMessage: response.status
       });
     });
