@@ -4,8 +4,14 @@ import constants from "../constants/user";
 
 const initialState = Map({
   users: Map(),
+  user: Map(),
   ui: Map({
     users: Map({
+      loading: false,
+      doneLoading: false,
+      loadError: null
+    }),
+    user: Map({
       loading: false,
       doneLoading: false,
       loadError: null
@@ -57,6 +63,35 @@ export default (state = initialState, action) => {
             loadError: null
           });
         });
+
+    case constants.SAVE_USER_REQUEST:
+      return state.set("user", Map()).updateIn(["ui", "user"], () => {
+        return Map({
+          loading: true,
+          doneLoading: false,
+          loadError: null
+        });
+      });
+
+    case constants.SAVE_USER_SUCCESS:
+      return state
+        .set("user", Map([[action.user.id, action.user]]))
+        .updateIn(["ui", "user"], () => {
+          return Map({
+            loading: false,
+            doneLoading: true,
+            loadError: null
+          });
+        });
+
+    case constants.SAVE_USER_FAILURE:
+      return state.updateIn(["ui", "user"], () => {
+        return Map({
+          loading: false,
+          doneLoading: false,
+          loadError: action.errorMessage
+        });
+      });
 
     default:
       return state;

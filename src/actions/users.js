@@ -50,3 +50,30 @@ export const channelConnection = () => dispatch => {
     });
   });
 };
+
+export const saveUser = values => dispatch => {
+  dispatch({
+    type: constants.SAVE_USER_REQUEST
+  });
+
+  return fetch("http://localhost:4000/api/users", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ user: values })
+  })
+    .then(res => res.json())
+    .then(user => {
+      dispatch({
+        type: constants.SAVE_USER_SUCCESS,
+        user: user.data
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.SAVE_USER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
