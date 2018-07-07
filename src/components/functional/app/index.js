@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Users from "../../../pages/users";
 import UsersNew from "../../../pages/users/new";
+import UsersEdit from "../../../pages/users/edit";
 import Auth from "../../../helpers/auth";
 
 const auth = new Auth();
@@ -62,8 +63,17 @@ class App extends React.Component {
           </Menu>
         </Layout.Header>
         <ContentWrapper>
-          <Route exact path="/users" render={() => <Users />} />
-          <Route exact path="/users/new" render={() => <UsersNew />} />
+          <Route exact path="/users" render={props => <Users {...props} />} />
+          <Route
+            exact
+            path="/users/new"
+            render={props => <UsersNew {...props} />}
+          />
+          <Route
+            exact
+            path="/users/:id/edit"
+            render={props => <UsersEdit {...props} />}
+          />
           <Route
             exact
             path="/callback"

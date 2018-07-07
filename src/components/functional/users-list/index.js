@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { List, Button } from "antd";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ListItemWrapper = styled(List.Item)`
   margin: 20px;
@@ -31,9 +32,9 @@ class UsersList extends React.Component {
       renderItem={item => (
         <ListItemWrapper
           actions={[
-            <Button type="primary" onClick={() => this.props.editUser(item.id)}>
-              Edit
-            </Button>,
+            <Link to={`/users/${item.id}/edit`}>
+              <Button type="primary">Edit</Button>
+            </Link>,
             <Button
               type="danger"
               onClick={() => this.props.deleteUser(item.id)}

@@ -32,6 +32,32 @@ export const fetchUsers = () => dispatch => {
     });
 };
 
+export const fetchUser = id => dispatch => {
+  dispatch({
+    type: constants.FETCH_USER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/api/users/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(user => {
+      dispatch({
+        type: constants.FETCH_USER_SUCCESS,
+        user
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.FETCH_USER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
 export const joinChannel = () => dispatch => {
   const channel = socket.channel("users");
 
@@ -69,6 +95,33 @@ export const saveUser = values => dispatch => {
 
   return fetch("http://localhost:4000/api/users", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ user: values })
+  })
+    .then(res => res.json())
+    .then(user => {
+      dispatch({
+        type: constants.SAVE_USER_SUCCESS,
+        user: user.data
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.SAVE_USER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
+export const editUser = values => dispatch => {
+  dispatch({
+    type: constants.SAVE_USER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/api/users/${values.id}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },

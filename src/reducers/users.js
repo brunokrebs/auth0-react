@@ -51,6 +51,35 @@ export default (state = initialState, action) => {
         });
       });
 
+    case constants.FETCH_USER_REQUEST:
+      return state.set("user", Map()).updateIn(["ui", "user"], () => {
+        return Map({
+          loading: true,
+          doneLoading: false,
+          loadError: null
+        });
+      });
+
+    case constants.FETCH_USER_SUCCESS:
+      return state
+        .set("user", Map(action.user.data))
+        .updateIn(["ui", "user"], () => {
+          return Map({
+            loading: false,
+            doneLoading: true,
+            loadError: null
+          });
+        });
+
+    case constants.FETCH_USER_FAILURE:
+      return state.updateIn(["ui", "user"], () => {
+        return Map({
+          loading: false,
+          doneLoading: false,
+          loadError: action.errorMessage
+        });
+      });
+
     case constants.HAS_NEW_USER:
       return state
         .set(

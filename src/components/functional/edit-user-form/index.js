@@ -8,13 +8,20 @@ const CardWrapper = styled(Card)`
   margin: 20px auto !important;
 `;
 
-class NewUserForm extends React.Component {
+class EditUserForm extends React.Component {
+  componentDidMount() {
+    this.props.fetchUser(this.props.match.params.id);
+  }
+
   handleSubmit = e => {
     e.preventDefault();
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.saveUser(values);
+        this.props.editUser({
+          id: this.props.match.params.id,
+          name: values.name
+        });
       }
     });
   };
@@ -27,7 +34,8 @@ class NewUserForm extends React.Component {
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
             {getFieldDecorator("name", {
-              rules: [{ required: true, message: "Please input your name!" }]
+              rules: [{ required: true, message: "Please input your name!" }],
+              initialValue: this.props.user.get("name")
             })(
               <Input
                 placeholder="Name"
@@ -43,7 +51,7 @@ class NewUserForm extends React.Component {
               htmlType="submit"
               disabled={this.props.userUi.get("loading")}
             >
-              Add user
+              Update user
             </Button>
           </Form.Item>
         </Form>
@@ -52,7 +60,7 @@ class NewUserForm extends React.Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create()(NewUserForm);
+const WrappedNormalLoginForm = Form.create()(EditUserForm);
 
 WrappedNormalLoginForm.propTypes = {
   userUi: PropTypes.object

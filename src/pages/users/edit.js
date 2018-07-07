@@ -2,18 +2,18 @@ import React from "react";
 import { Row } from "antd";
 import { Col } from "antd";
 
-import NewUserForm from "../../containers/new-user-form";
+import EditUserForm from "../../containers/edit-user-form";
 
-class UserNew extends React.Component {
+class UserEdit extends React.Component {
   render() {
     return (
       <Row>
         <Col span={24}>
-          <NewUserForm {...this.props} />
+          <EditUserForm {...this.props} />
         </Col>
       </Row>
     );
   }
 }
 
-export default UserNew;
+export default UserEdit;
