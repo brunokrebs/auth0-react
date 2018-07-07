@@ -2,15 +2,9 @@ import { Socket } from "phoenix";
 
 import constants from "../constants/user";
 
-const socket = new Socket("ws://localhost:4000/socket", {
-  logger: (kind, msg, data) => {
-    console.log(`${kind}: ${msg}`, data);
-  }
-});
+const socket = new Socket("ws://localhost:4000/socket");
 
 socket.connect();
-
-const channel = socket.channel("users");
 
 export const fetchUsers = () => dispatch => {
   dispatch({
@@ -38,10 +32,12 @@ export const fetchUsers = () => dispatch => {
     });
 };
 
-export const channelConnection = () => dispatch => {
+export const joinChannel = () => dispatch => {
+  const channel = socket.channel("users");
+
   channel.join().receive("ok", response => {
     dispatch({
-      type: constants.CONNECTED_TO_USER_CHANNEL,
+      type: constants.JOIN_USER_CHANNEL_SUCCESS,
       response,
       channel
     });
@@ -51,6 +47,16 @@ export const channelConnection = () => dispatch => {
     dispatch({
       type: constants.HAS_NEW_USER,
       user: response.user,
+      channel
+    });
+  });
+};
+
+export const leaveChannel = channel => dispatch => {
+  channel.leave().receive("ok", response => {
+    dispatch({
+      type: constants.LEAVE_USER_CHANNEL_SUCCESS,
+      response,
       channel
     });
   });

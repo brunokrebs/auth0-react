@@ -5,6 +5,7 @@ import constants from "../constants/user";
 const initialState = Map({
   users: Map(),
   user: Map(),
+  channel: null,
   ui: Map({
     users: Map({
       loading: false,
@@ -121,6 +122,12 @@ export default (state = initialState, action) => {
           loadError: action.errorMessage
         });
       });
+
+    case constants.JOIN_USER_CHANNEL_SUCCESS:
+      return state.set("channel", action.channel);
+
+    case constants.LEAVE_USER_CHANNEL_SUCCESS:
+      return state.set("channel", null);
 
     default:
       return state;
