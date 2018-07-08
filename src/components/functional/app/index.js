@@ -12,6 +12,15 @@ const auth = new Auth();
 
 const ContentWrapper = styled(Layout.Content)`
   min-height: calc(100vh - 65px);
+  width: 700px;
+  margin: 20px auto;
+`;
+
+const HeaderWrapper = styled(Layout.Header)`
+  background: #fff;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 class App extends React.Component {
@@ -41,27 +50,51 @@ class App extends React.Component {
     );
   };
 
+  menuNode = () => {
+    if (auth.isAuthenticated()) {
+      return (
+        <Menu mode="horizontal" style={{ lineHeight: "64px" }}>
+          <Menu.Item key="1">
+            <Link to="/users/new">Add user</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to="/users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="3">
+            <Button
+              onClick={() => {
+                auth.logout();
+              }}
+            >
+              Log Out
+            </Button>
+          </Menu.Item>
+        </Menu>
+      );
+    } else {
+      return (
+        <Menu mode="horizontal" style={{ lineHeight: "64px" }}>
+          <Menu.Item key="1">
+            <Link to="/users">Users</Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Button
+              onClick={() => {
+                auth.login();
+              }}
+            >
+              Log In
+            </Button>
+          </Menu.Item>
+        </Menu>
+      );
+    }
+  };
+
   render() {
     return (
       <Layout>
-        <Layout.Header
-          style={{
-            background: "#fff",
-            padding: "0",
-            display: "flex",
-            justifyContent: "flex-end"
-          }}
-        >
-          <Menu mode="horizontal" style={{ lineHeight: "64px" }}>
-            <Menu.Item key="1">
-              <Link to="/users/new">Add user</Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/users">Users</Link>
-            </Menu.Item>
-            <Menu.Item key="3">{this.authenticationButtonNode()}</Menu.Item>
-          </Menu>
-        </Layout.Header>
+        <HeaderWrapper>{this.menuNode()}</HeaderWrapper>
         <ContentWrapper>
           <Route exact path="/users" render={props => <Users {...props} />} />
           <Route

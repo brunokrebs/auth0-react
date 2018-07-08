@@ -1,12 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Card, Form, Input, Button } from "antd";
-import styled from "styled-components";
-
-const CardWrapper = styled(Card)`
-  width: 500px;
-  margin: 20px auto !important;
-`;
 
 class EditUserForm extends React.Component {
   componentDidMount() {
@@ -30,7 +24,7 @@ class EditUserForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <CardWrapper title="Add new user">
+      <Card title="Add new user">
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
             {getFieldDecorator("name", {
@@ -55,7 +49,7 @@ class EditUserForm extends React.Component {
             </Button>
           </Form.Item>
         </Form>
-      </CardWrapper>
+      </Card>
     );
   }
 }
