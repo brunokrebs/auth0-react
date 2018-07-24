@@ -124,10 +124,8 @@ export default (state = initialState, action) => {
       });
 
     case constants.DELETE_USER_REQUEST:
-      return state.set("users", Map()).updateIn(["ui", "users"], () => {
+      return state.updateIn(["ui", "users"], () => {
         return Map({
-          loading: true,
-          doneLoading: false,
           loadError: null
         });
       });
@@ -137,8 +135,6 @@ export default (state = initialState, action) => {
         .set("users", state.get("users").delete(action.id))
         .updateIn(["ui", "users"], () => {
           return Map({
-            loading: false,
-            doneLoading: true,
             loadError: null
           });
         });
@@ -146,8 +142,6 @@ export default (state = initialState, action) => {
     case constants.DELETE_USER_FAILURE:
       return state.updateIn(["ui", "users"], () => {
         return Map({
-          loading: false,
-          doneLoading: false,
           loadError: action.errorMessage
         });
       });

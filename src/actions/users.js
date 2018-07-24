@@ -11,10 +11,11 @@ export const fetchUsers = () => dispatch => {
     type: constants.FETCH_USERS_REQUEST
   });
 
-  return fetch("http://localhost:4000/api/users", {
+  return fetch("http://localhost:4000/v1/users", {
     method: "GET",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("id_token")}`
     }
   })
     .then(res => res.json())
@@ -37,10 +38,11 @@ export const fetchUser = id => dispatch => {
     type: constants.FETCH_USER_REQUEST
   });
 
-  return fetch(`http://localhost:4000/api/users/${id}`, {
+  return fetch(`http://localhost:4000/v1/users/${id}`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("id_token")}`
     }
   })
     .then(res => res.json())
@@ -93,10 +95,11 @@ export const saveUser = values => dispatch => {
     type: constants.SAVE_USER_REQUEST
   });
 
-  return fetch("http://localhost:4000/api/users", {
+  return fetch("http://localhost:4000/v1/users", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("id_token")}`
     },
     body: JSON.stringify({ user: values })
   })
@@ -120,10 +123,11 @@ export const editUser = values => dispatch => {
     type: constants.SAVE_USER_REQUEST
   });
 
-  return fetch(`http://localhost:4000/api/users/${values.id}`, {
+  return fetch(`http://localhost:4000/v1/users/${values.id}`, {
     method: "PATCH",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("id_token")}`
     },
     body: JSON.stringify({ user: values })
   })
@@ -147,10 +151,11 @@ export const deleteUser = id => dispatch => {
     type: constants.DELETE_USER_REQUEST
   });
 
-  return fetch(`http://localhost:4000/api/users/${id}`, {
+  return fetch(`http://localhost:4000/v1/users/${id}`, {
     method: "DELETE",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("id_token")}`
     }
   })
     .then(() => {

@@ -5,8 +5,9 @@ import { history } from "../store";
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "ghoshnirmalya.auth0.com",
-    clientID: "CUxVMCKLjuVgYGEPIjHGfQalTdzPnQA6",
-    redirectUri: "http://localhost:3000/callback",
+    clientID: "WzAIG1qj90BMgw0mX6ERdS4asSYee97D",
+    // redirectUri: "http://localhost:3000/callback",
+    redirectUri: "http://localhost:4000/v1/auth/auth0/callback",
     audience: "https://ghoshnirmalya.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid"
