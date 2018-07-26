@@ -1,18 +1,18 @@
 import React from "react";
 import { Row, Col } from "antd";
 
-import AuthContainer from "../../containers/auth";
+import MembersList from "../../containers/members-list";
 
-class Auth extends React.Component {
+class Members extends React.Component {
   render() {
     return (
       <Row>
         <Col span={24}>
-          <AuthContainer {...this.props} />
+          <MembersList {...this.props} />
         </Col>
       </Row>
     );
   }
 }
 
-export default Auth;
+export default Members;

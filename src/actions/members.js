@@ -1,17 +1,17 @@
 import { Socket } from "phoenix";
 
-import constants from "../constants/user";
+import constants from "../constants/members";
 
 const socket = new Socket("ws://localhost:4000/socket");
 
 socket.connect();
 
-export const fetchUsers = () => dispatch => {
+export const fetchMembers = () => dispatch => {
   dispatch({
-    type: constants.FETCH_USERS_REQUEST
+    type: constants.FETCH_MEMBERS_REQUEST
   });
 
-  return fetch("http://localhost:4000/v1/users", {
+  return fetch("http://localhost:4000/v1/members", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -19,35 +19,35 @@ export const fetchUsers = () => dispatch => {
     }
   })
     .then(res => res.json())
-    .then(users => {
+    .then(members => {
       dispatch({
-        type: constants.FETCH_USERS_SUCCESS,
-        users
+        type: constants.FETCH_MEMBERS_SUCCESS,
+        members
       });
     })
     .catch(response => {
       dispatch({
-        type: constants.FETCH_USERS_FAILURE,
+        type: constants.FETCH_MEMBERS_FAILURE,
         errorMessage: response.status
       });
     });
 };
 
 export const joinChannel = () => dispatch => {
-  const channel = socket.channel("users");
+  const channel = socket.channel("members");
 
   channel.join().receive("ok", response => {
     dispatch({
-      type: constants.JOIN_USER_CHANNEL_SUCCESS,
+      type: constants.JOIN_MEMBER_CHANNEL_SUCCESS,
       response,
       channel
     });
   });
 
-  channel.on("users::new", response => {
+  channel.on("members::new", response => {
     dispatch({
-      type: constants.HAS_NEW_USER,
-      user: response.user,
+      type: constants.HAS_NEW_MEMBER,
+      member: response.member,
       channel
     });
   });
@@ -56,7 +56,7 @@ export const joinChannel = () => dispatch => {
 export const leaveChannel = channel => dispatch => {
   channel.leave().receive("ok", response => {
     dispatch({
-      type: constants.LEAVE_USER_CHANNEL_SUCCESS,
+      type: constants.LEAVE_MEMBER_CHANNEL_SUCCESS,
       response,
       channel
     });

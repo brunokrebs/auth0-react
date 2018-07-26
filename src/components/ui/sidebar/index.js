@@ -18,7 +18,7 @@ class Sidebar extends React.Component {
           <Menu.Item key="1">
             <Icon type="user" />
             <span>
-              <Link to="/users">Users</Link>
+              <Link to="/members">Members</Link>
             </span>
           </Menu.Item>
         </Menu>

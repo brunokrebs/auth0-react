@@ -1,12 +1,12 @@
 import { Map } from "immutable";
 
-import constants from "../constants/user";
+import constants from "../constants/members";
 
 const initialState = Map({
-  users: Map(),
+  members: Map(),
   channel: null,
   ui: Map({
-    users: Map({
+    members: Map({
       loading: false,
       doneLoading: false,
       loadError: null
@@ -16,8 +16,8 @@ const initialState = Map({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case constants.FETCH_USERS_REQUEST:
-      return state.set("users", Map()).updateIn(["ui", "users"], () => {
+    case constants.FETCH_MEMBERS_REQUEST:
+      return state.set("members", Map()).updateIn(["ui", "members"], () => {
         return Map({
           loading: true,
           doneLoading: false,
@@ -25,10 +25,10 @@ export default (state = initialState, action) => {
         });
       });
 
-    case constants.FETCH_USERS_SUCCESS:
+    case constants.FETCH_MEMBERS_SUCCESS:
       return state
-        .set("users", Map(action.users.data.map(u => [u.id, u])))
-        .updateIn(["ui", "users"], () => {
+        .set("members", Map(action.members.data.map(u => [u.id, u])))
+        .updateIn(["ui", "members"], () => {
           return Map({
             loading: false,
             doneLoading: true,
@@ -36,8 +36,8 @@ export default (state = initialState, action) => {
           });
         });
 
-    case constants.FETCH_USERS_FAILURE:
-      return state.updateIn(["ui", "users"], () => {
+    case constants.FETCH_MEMBERS_FAILURE:
+      return state.updateIn(["ui", "members"], () => {
         return Map({
           loading: false,
           doneLoading: false,
@@ -45,13 +45,13 @@ export default (state = initialState, action) => {
         });
       });
 
-    case constants.HAS_NEW_USER:
+    case constants.HAS_NEW_MEMBER:
       return state
         .set(
-          "users",
-          state.get("users").merge(Map([[action.user.id, action.user]]))
+          "members",
+          state.get("members").merge(Map([[action.member.id, action.member]]))
         )
-        .updateIn(["ui", "users"], () => {
+        .updateIn(["ui", "members"], () => {
           return Map({
             loading: false,
             doneLoading: true,
@@ -59,10 +59,10 @@ export default (state = initialState, action) => {
           });
         });
 
-    case constants.JOIN_USER_CHANNEL_SUCCESS:
+    case constants.JOIN_MEMBER_CHANNEL_SUCCESS:
       return state.set("channel", action.channel);
 
-    case constants.LEAVE_USER_CHANNEL_SUCCESS:
+    case constants.LEAVE_MEMBER_CHANNEL_SUCCESS:
       return state.set("channel", null);
 
     default:

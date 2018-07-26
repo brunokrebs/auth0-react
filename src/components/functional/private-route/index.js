@@ -5,7 +5,7 @@ const PrivateRoute = ({ component: Component, auth, currentPath, ...rest }) => {
   const authenticated = auth.isAuthenticated();
 
   if (authenticated && currentPath === "/auth") {
-    return <Redirect to="/users" />;
+    return <Redirect to="/members" />;
   }
 
   return (

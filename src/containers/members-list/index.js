@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { fetchUsers, joinChannel, leaveChannel } from "../../actions/users";
-import UsersList from "../../components/functional/users-list";
+import { fetchMembers, joinChannel, leaveChannel } from "../../actions/members";
+import membersList from "../../components/functional/members-list";
 
 function mapStateToProps(state) {
   return {
-    users: state.users.get("users"),
-    usersUi: state.users.get("ui").get("users"),
-    channel: state.users.get("channel")
+    members: state.members.get("members"),
+    membersUi: state.members.get("ui").get("members"),
+    channel: state.members.get("channel")
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      fetchUsers,
+      fetchMembers,
       joinChannel,
       leaveChannel
     },
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UsersList);
+)(membersList);

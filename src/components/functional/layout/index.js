@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import Sidebar from "../../ui/sidebar";
 import Header from "../../ui/header";
-import Users from "../../../pages/users";
+import Members from "../../../pages/members";
 import PrivateRoute from "../private-route";
 
 const ContentWrapper = styled(Layout.Content)`
@@ -34,8 +34,8 @@ class App extends React.Component {
           <ContentWrapper>
             <PrivateRoute
               exact
-              path="/users"
-              component={Users}
+              path="/members"
+              component={Members}
               auth={this.props.auth}
               currentPath={this.props.history.location.pathname}
             />
