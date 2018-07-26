@@ -15,7 +15,7 @@ export const fetchUsers = () => dispatch => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("id_token")}`
+      Authorization: `Bearer ${localStorage.getItem("auth_token")}`
     }
   })
     .then(res => res.json())
@@ -28,33 +28,6 @@ export const fetchUsers = () => dispatch => {
     .catch(response => {
       dispatch({
         type: constants.FETCH_USERS_FAILURE,
-        errorMessage: response.status
-      });
-    });
-};
-
-export const fetchUser = id => dispatch => {
-  dispatch({
-    type: constants.FETCH_USER_REQUEST
-  });
-
-  return fetch(`http://localhost:4000/v1/users/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("id_token")}`
-    }
-  })
-    .then(res => res.json())
-    .then(user => {
-      dispatch({
-        type: constants.FETCH_USER_SUCCESS,
-        user
-      });
-    })
-    .catch(response => {
-      dispatch({
-        type: constants.FETCH_USER_FAILURE,
         errorMessage: response.status
       });
     });
@@ -88,86 +61,4 @@ export const leaveChannel = channel => dispatch => {
       channel
     });
   });
-};
-
-export const saveUser = values => dispatch => {
-  dispatch({
-    type: constants.SAVE_USER_REQUEST
-  });
-
-  return fetch("http://localhost:4000/v1/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("id_token")}`
-    },
-    body: JSON.stringify({ user: values })
-  })
-    .then(res => res.json())
-    .then(user => {
-      dispatch({
-        type: constants.SAVE_USER_SUCCESS,
-        user: user.data
-      });
-    })
-    .catch(response => {
-      dispatch({
-        type: constants.SAVE_USER_FAILURE,
-        errorMessage: response.status
-      });
-    });
-};
-
-export const editUser = values => dispatch => {
-  dispatch({
-    type: constants.SAVE_USER_REQUEST
-  });
-
-  return fetch(`http://localhost:4000/v1/users/${values.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("id_token")}`
-    },
-    body: JSON.stringify({ user: values })
-  })
-    .then(res => res.json())
-    .then(user => {
-      dispatch({
-        type: constants.SAVE_USER_SUCCESS,
-        user: user.data
-      });
-    })
-    .catch(response => {
-      dispatch({
-        type: constants.SAVE_USER_FAILURE,
-        errorMessage: response.status
-      });
-    });
-};
-
-export const deleteUser = id => dispatch => {
-  dispatch({
-    type: constants.DELETE_USER_REQUEST
-  });
-
-  return fetch(`http://localhost:4000/v1/users/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("id_token")}`
-    }
-  })
-    .then(() => {
-      dispatch({
-        type: constants.DELETE_USER_SUCCESS,
-        id
-      });
-    })
-    .catch(response => {
-      dispatch({
-        type: constants.DELETE_USER_FAILURE,
-        errorMessage: response.status
-      });
-    });
 };

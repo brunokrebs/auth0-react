@@ -11,7 +11,7 @@ require("dotenv").config();
 render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <App />
+      <App history={history} />
     </ConnectedRouter>
   </Provider>,
   document.querySelector("#root")

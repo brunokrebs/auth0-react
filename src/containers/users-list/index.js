@@ -1,12 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import {
-  fetchUsers,
-  deleteUser,
-  joinChannel,
-  leaveChannel
-} from "../../actions/users";
+import { fetchUsers, joinChannel, leaveChannel } from "../../actions/users";
 import UsersList from "../../components/functional/users-list";
 
 function mapStateToProps(state) {
@@ -21,7 +16,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       fetchUsers,
-      deleteUser,
       joinChannel,
       leaveChannel
     },

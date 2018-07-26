@@ -7,7 +7,8 @@ module.exports = function override(config, env) {
     config
   ); // change importing css to less
   config = rewireLess.withLoaderOptions({
-    modifyVars: { "@primary-color": "#EB5424" }
+    modifyVars: { "@primary-color": "#EB5424" },
+    javascriptEnabled: true
   })(config, env);
   return config;
 };

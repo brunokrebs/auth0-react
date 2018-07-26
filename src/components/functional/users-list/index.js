@@ -43,8 +43,7 @@ class UsersList extends React.Component {
             </Button>
           ]}
         >
-          <List.Item.Meta title={item.name} description={item.name} />
-          <div>{item.name}</div>
+          <List.Item.Meta title={item.username} />
         </ListItemWrapper>
       )}
     />
