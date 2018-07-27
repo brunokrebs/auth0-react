@@ -15,14 +15,19 @@ const ButtonsContainerWrapper = styled.div`
   border-radius: 0 0 4px 4px;
 `;
 
-class MemberEditForm extends React.Component {
+class MemberNewForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props
-          .editMember(values, this.props.data.id)
+          .createMember(values)
+          .then(() => {
+            this.props.form.setFieldsValue({
+              name: ""
+            });
+          })
           .then(() => this.props.toggleDrawerVisibility());
       }
     });
@@ -45,13 +50,10 @@ class MemberEditForm extends React.Component {
             <Col span={24}>
               <Form.Item label="Name">
                 {getFieldDecorator("name", {
-                  rules: [
-                    { required: true, message: "Please enter user name" }
-                  ],
-                  initialValue: this.props.data && this.props.data.name
+                  rules: [{ required: true, message: "Please enter user name" }]
                 })(
                   <Input
-                    placeholder="Please enter an updated user name"
+                    placeholder="Please enter a new user name"
                     size="large"
                   />
                 )}
@@ -78,8 +80,8 @@ class MemberEditForm extends React.Component {
   }
 }
 
-MemberEditForm.propTypes = {};
+MemberNewForm.propTypes = {};
 
-const WrappedMemberEditForm = Form.create()(MemberEditForm);
+const WrappedMemberNewForm = Form.create()(MemberNewForm);
 
-export default WrappedMemberEditForm;
+export default WrappedMemberNewForm;

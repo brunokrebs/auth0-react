@@ -65,6 +65,38 @@ export const editMember = (values, id) => dispatch => {
     });
 };
 
+export const createMember = values => dispatch => {
+  dispatch({
+    type: constants.CREATE_MEMBER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/v1/members`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("auth_token")}`
+    },
+    body: JSON.stringify({
+      member: {
+        name: values.name
+      }
+    })
+  })
+    .then(res => res.json())
+    .then(member => {
+      dispatch({
+        type: constants.CREATE_MEMBER_SUCCESS,
+        member
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.CREATE_MEMBER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
 export const deleteMember = id => dispatch => {
   dispatch({
     type: constants.DELETE_MEMBER_REQUEST
