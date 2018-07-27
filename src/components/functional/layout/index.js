@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Layout } from "antd";
 import styled from "styled-components";
 
@@ -34,5 +35,10 @@ class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  auth: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default App;

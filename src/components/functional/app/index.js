@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import PublicLayout from "../layout/public";
 import Layout from "../layout";
@@ -15,9 +14,5 @@ class App extends React.Component {
     return <Layout {...this.props} auth={auth} />;
   }
 }
-
-App.propTypes = {
-  history: PropTypes.object
-};
 
 export default App;

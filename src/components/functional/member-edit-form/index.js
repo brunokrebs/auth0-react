@@ -78,7 +78,12 @@ class MemberEditForm extends React.Component {
   }
 }
 
-MemberEditForm.propTypes = {};
+MemberEditForm.propTypes = {
+  data: PropTypes.object,
+  toggleDrawerVisibility: PropTypes.func,
+  visible: PropTypes.bool,
+  form: PropTypes.object
+};
 
 const WrappedMemberEditForm = Form.create()(MemberEditForm);
 

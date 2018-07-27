@@ -80,7 +80,11 @@ class MemberNewForm extends React.Component {
   }
 }
 
-MemberNewForm.propTypes = {};
+MemberNewForm.propTypes = {
+  toggleDrawerVisibility: PropTypes.func,
+  visible: PropTypes.bool,
+  form: PropTypes.object
+};
 
 const WrappedMemberNewForm = Form.create()(MemberNewForm);
 

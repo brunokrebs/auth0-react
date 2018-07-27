@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Spin } from "antd";
 import { Route, Redirect } from "react-router-dom";
 import styled from "styled-components";
@@ -44,5 +45,10 @@ class PublicLayout extends React.Component {
     return <Route exact path="/auth" render={() => <Auth {...this.props} />} />;
   }
 }
+
+Auth.propTypes = {
+  auth: PropTypes.object,
+  authenticate: PropTypes.func
+};
 
 export default PublicLayout;

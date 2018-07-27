@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button } from "antd";
 import styled from "styled-components";
 
@@ -26,5 +27,9 @@ class Auth extends React.Component {
     );
   }
 }
+
+Auth.propTypes = {
+  auth: PropTypes.object
+};
 
 export default Auth;

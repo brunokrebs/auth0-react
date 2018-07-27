@@ -83,7 +83,11 @@ class MembersList extends React.Component {
 MembersList.propTypes = {
   fetchMembers: PropTypes.func,
   members: PropTypes.object,
-  membersUi: PropTypes.object
+  membersUi: PropTypes.object,
+  isDrawerVisible: PropTypes.bool,
+  deleteMember: PropTypes.func,
+  channel: PropTypes.object,
+  joinChannel: PropTypes.func
 };
 
 export default MembersList;

@@ -1,15 +1,8 @@
 import React from "react";
-import { Layout, Icon, Button } from "antd";
+import { Layout, Button } from "antd";
 import styled from "styled-components";
 
 import MemberNewForm from "../../../containers/member-new-form";
-
-const TriggerWrapper = styled(Icon)`
-  font-size: 18px;
-  line-height: 64px;
-  cursor: pointer;
-  transition: color 0.3s;
-`;
 
 const HeaderWrapper = styled(Layout.Header)`
   background: #fff !important;
