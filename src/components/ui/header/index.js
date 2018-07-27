@@ -15,7 +15,7 @@ const HeaderWrapper = styled(Layout.Header)`
   background: #fff !important;
   padding: 0 !important;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   padding: 0 16px !important;
 `;
@@ -32,11 +32,6 @@ class Header extends React.Component {
   render() {
     return [
       <HeaderWrapper key={1}>
-        <TriggerWrapper
-          className="trigger"
-          type={this.props.collapsed ? "menu-unfold" : "menu-fold"}
-          onClick={this.props.onToggle}
-        />
         <Button type="primary" onClick={this.toggleDrawerVisibility}>
           Add new member
         </Button>
