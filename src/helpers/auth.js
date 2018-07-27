@@ -28,7 +28,7 @@ export default class Auth {
 
   setSession = (authResult, authenticate) => {
     authenticate(authResult).then(() => {
-      history.replace("/members");
+      history.replace("/");
     });
   };
 

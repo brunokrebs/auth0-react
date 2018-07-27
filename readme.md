@@ -35,7 +35,7 @@ yarn install
 yarn start
 ```
 
-The app will be running at [localhost:3000](http://localhost:3000/). You can now visit the [/members](http://localhost:3000/members) route to see the members page.
+The app will be running at [localhost:3000](http://localhost:3000/). You can now visit the [localhost:3000](http://localhost:3000/) route to see the members data.
 
 ## Built With
 

@@ -23,7 +23,7 @@ class App extends React.Component {
           <ContentWrapper>
             <PrivateRoute
               exact
-              path="/members"
+              path="/"
               component={Members}
               auth={this.props.auth}
               currentPath={this.props.history.location.pathname}

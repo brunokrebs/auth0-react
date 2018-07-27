@@ -20,7 +20,7 @@ class Auth extends React.Component {
             this.props.auth.login();
           }}
         >
-          Log In
+          Sing in using Auth0
         </Button>
       </LayoutWrapper>
     );
