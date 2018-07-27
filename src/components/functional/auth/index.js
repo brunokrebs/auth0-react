@@ -21,7 +21,7 @@ class Auth extends React.Component {
             this.props.auth.login();
           }}
         >
-          Sing in using Auth0
+          Sign in using Auth0
         </Button>
       </LayoutWrapper>
     );
