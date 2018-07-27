@@ -45,6 +45,17 @@ export default (state = initialState, action) => {
         });
       });
 
+    case constants.DELETE_MEMBER_SUCCESS:
+      return state
+        .set("members", state.get("members").delete(action.id))
+        .updateIn(["ui", "members"], () => {
+          return Map({
+            loading: false,
+            doneLoading: true,
+            loadError: null
+          });
+        });
+
     case constants.HAS_NEW_MEMBER:
       return state
         .set(

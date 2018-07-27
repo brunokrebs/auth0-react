@@ -65,6 +65,32 @@ export const editMember = (values, id) => dispatch => {
     });
 };
 
+export const deleteMember = id => dispatch => {
+  dispatch({
+    type: constants.DELETE_MEMBER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/v1/members/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("auth_token")}`
+    }
+  })
+    .then(() => {
+      dispatch({
+        type: constants.DELETE_MEMBER_SUCCESS,
+        id
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.DELETE_MEMBER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
 export const joinChannel = () => dispatch => {
   const channel = socket.channel("members");
 
