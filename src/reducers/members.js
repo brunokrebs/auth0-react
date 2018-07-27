@@ -59,6 +59,17 @@ export default (state = initialState, action) => {
           });
         });
 
+    case constants.HAS_UPDATED_MEMBER:
+      return state
+        .updateIn(["members", action.member.id], () => action.member)
+        .updateIn(["ui", "members"], () => {
+          return Map({
+            loading: false,
+            doneLoading: true,
+            loadError: null
+          });
+        });
+
     case constants.JOIN_MEMBER_CHANNEL_SUCCESS:
       return state.set("channel", action.channel);
 

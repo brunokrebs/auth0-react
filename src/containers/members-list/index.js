@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { fetchMembers, joinChannel, leaveChannel } from "../../actions/members";
-import membersList from "../../components/functional/members-list";
+import MembersList from "../../components/functional/members-list";
 
 function mapStateToProps(state) {
   return {
@@ -26,4 +26,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(membersList);
+)(MembersList);

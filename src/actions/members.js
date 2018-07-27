@@ -33,6 +33,38 @@ export const fetchMembers = () => dispatch => {
     });
 };
 
+export const editMember = (values, id) => dispatch => {
+  dispatch({
+    type: constants.EDIT_MEMBER_REQUEST
+  });
+
+  return fetch(`http://localhost:4000/v1/members/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("auth_token")}`
+    },
+    body: JSON.stringify({
+      member: {
+        name: values.name
+      }
+    })
+  })
+    .then(res => res.json())
+    .then(member => {
+      dispatch({
+        type: constants.EDIT_MEMBER_SUCCESS,
+        member
+      });
+    })
+    .catch(response => {
+      dispatch({
+        type: constants.EDIT_MEMBER_FAILURE,
+        errorMessage: response.status
+      });
+    });
+};
+
 export const joinChannel = () => dispatch => {
   const channel = socket.channel("members");
 
@@ -47,6 +79,14 @@ export const joinChannel = () => dispatch => {
   channel.on("members::new", response => {
     dispatch({
       type: constants.HAS_NEW_MEMBER,
+      member: response.member,
+      channel
+    });
+  });
+
+  channel.on("member::update", response => {
+    dispatch({
+      type: constants.HAS_UPDATED_MEMBER,
       member: response.member,
       channel
     });
